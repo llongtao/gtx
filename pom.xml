@@ -7,15 +7,36 @@
     <groupId>com.llt</groupId>
     <artifactId>gtx-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <modules>
+        <module>gtx-bom</module>
         <module>gtx-common</module>
         <module>gtx-discovery</module>
         <module>gtx-spring-boot-starter</module>
         <module>gtx-tm-server</module>
+        <module>gtx-rm</module>
+        <module>gtx-tm</module>
         <module>gtx-core</module>
         <module>gtx-spring</module>
     </modules>
 
+    <properties>
+        <!-- gtx version -->
+        <revision>1.0.0-SNAPSHOT</revision>
 
+
+
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.llt</groupId>
+                <artifactId>gtx-bom</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

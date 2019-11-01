@@ -10,7 +10,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.llt</groupId>
-    <artifactId>gtx-core</artifactId>
+    <artifactId>gtx-rm</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>gtx-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -23,13 +30,6 @@
             </plugin>
         </plugins>
     </build>
-<dependencies>
-    <dependency>
-        <groupId>${project.groupId}</groupId>
-        <artifactId>gtx-common</artifactId>
-        <version>${project.version}</version>
-        <scope>compile</scope>
-    </dependency>
-</dependencies>
+
 
 </project>
