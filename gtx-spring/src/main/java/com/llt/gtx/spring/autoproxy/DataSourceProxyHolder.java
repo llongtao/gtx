@@ -13,7 +13,11 @@ public class DataSourceProxyHolder {
     private ConcurrentHashMap<DataSource, DataSourceProxy> dataSourceProxyMap;
 
     private DataSourceProxyHolder() {
-        dataSourceProxyMap = new ConcurrentHashMap<DataSource, DataSourceProxy>(8);
+        dataSourceProxyMap = new ConcurrentHashMap<>(8);
+    }
+
+    public DataSourceProxy putDataSource(DataSource bean) {
+        return dataSourceProxyMap.computeIfAbsent(bean, DataSourceProxy::new);
     }
 
 
