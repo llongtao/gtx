@@ -216,9 +216,6 @@ public class EurekaRegistryServiceImpl implements RegistryService<EurekaEventLis
                 try {
                     if (!needRegister) {
                         instanceConfig = new CustomEurekaInstanceConfig();
-                        instanceConfig.setApplicationName("app_tst");
-                        instanceConfig.setInstanceId("192.168.11.198");
-                        instanceConfig.setPort(1111);
                     }
 
                     ConfigurationManager.loadProperties(getEurekaProperties(needRegister));
