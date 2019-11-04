@@ -33,7 +33,7 @@
 
     <properties>
         <spring.version>4.3.23.RELEASE</spring.version>
-        <netty.version>4.1.30.Final</netty.version>
+        <netty.version>4.1.42.Final</netty.version>
         <cglib.version>3.1</cglib.version>
         <eureka.version>1.9.5</eureka.version>
         <archaius.version>0.7.6</archaius.version>
