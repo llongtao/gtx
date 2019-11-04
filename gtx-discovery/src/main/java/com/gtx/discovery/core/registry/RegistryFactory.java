@@ -63,8 +63,8 @@ public class RegistryFactory {
     public static void main(String[] args) throws Exception {
         EurekaRegistryProvider eurekaRegistryProvider = new EurekaRegistryProvider();
         RegistryService provide = eurekaRegistryProvider.provide();
-        InetSocketAddress unresolved = InetSocketAddress.createUnresolved("192.168.11.198", 1111);
-        InetSocketAddress inetSocketAddress = new InetSocketAddress("192.168.11.198",1111);
+        InetSocketAddress unresolved = InetSocketAddress.createUnresolved("127.0.0.1", 8761);
+        InetSocketAddress inetSocketAddress = new InetSocketAddress("127.0.0.1",8761);
         provide.register(inetSocketAddress);
         List app_tst = provide.lookup("app_tst");
         System.out.println(app_tst);

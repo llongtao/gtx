@@ -1,4 +1,4 @@
-package com.llt.demo.model;
+package com.gtx.demo.model;
 
 import lombok.Data;
 

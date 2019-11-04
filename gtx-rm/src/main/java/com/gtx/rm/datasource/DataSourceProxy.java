@@ -18,7 +18,6 @@ public class DataSourceProxy extends DataSourceWrapper {
 
     @Override
     public Connection getConnection() throws SQLException {
-        Connection connection = super.getConnection();
-        return new ConnectionProxy(connection);
+        return new ConnectionProxy(super.getConnection());
     }
 }

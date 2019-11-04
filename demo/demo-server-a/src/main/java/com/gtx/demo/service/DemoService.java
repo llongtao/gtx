@@ -1,7 +1,7 @@
-package com.llt.demo.service;
+package com.gtx.demo.service;
 
-import com.llt.demo.model.User;
-import com.llt.gtx.spring.annotation.GlobalTransactional;
+import com.gtx.demo.model.User;
+import com.gtx.spring.annotation.GlobalTransactional;
 
 public interface DemoService {
 

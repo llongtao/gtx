@@ -1,6 +1,6 @@
-package com.llt.demo.mapper;
+package com.gtx.demo.mapper;
 
-import com.llt.demo.model.User;
+import com.gtx.demo.model.User;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

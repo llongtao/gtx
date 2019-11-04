@@ -24,7 +24,7 @@ import static com.gtx.spring.boot.autoconfig.PropertiesConstants.GTX_PREFIX;
  * @author LILONGTAO
  * @date 2019-11-01
  */
-@ComponentScan(basePackages = "com.llt.gtx.spring.boot.autoconfig.properties")
+@ComponentScan(basePackages = "com.gtx.spring.boot.autoconfig.properties")
 @ConditionalOnProperty(prefix = GTX_PREFIX, name = "enabled", matchIfMissing = true)
 @ConditionalOnClass({DataSourceProxy.class})
 @Configuration
