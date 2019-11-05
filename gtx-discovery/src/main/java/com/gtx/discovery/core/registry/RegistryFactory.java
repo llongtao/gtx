@@ -20,11 +20,22 @@ import com.gtx.common.config.ConfigurationKeys;
 
 import com.gtx.common.exception.NotSupportYetException;
 import com.gtx.common.loader.EnhancedServiceLoader;
+import com.gtx.discovery.eureka.CustomEurekaInstanceConfig;
 import com.gtx.discovery.eureka.EurekaRegistryProvider;
+import com.gtx.discovery.eureka.EurekaRegistryServiceImpl;
+import com.netflix.appinfo.*;
+import com.netflix.discovery.DefaultEurekaClientConfig;
+import com.netflix.discovery.DiscoveryClient;
+import com.netflix.discovery.EurekaEvent;
+import com.netflix.discovery.EurekaEventListener;
+import com.netflix.discovery.shared.Applications;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.imageio.spi.IIORegistry;
+import javax.imageio.spi.ServiceRegistry;
 import java.net.InetSocketAddress;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -61,12 +72,29 @@ public class RegistryFactory {
     }
 
     public static void main(String[] args) throws Exception {
-        EurekaRegistryProvider eurekaRegistryProvider = new EurekaRegistryProvider();
-        RegistryService provide = eurekaRegistryProvider.provide();
-        InetSocketAddress unresolved = InetSocketAddress.createUnresolved("127.0.0.1", 8761);
-        InetSocketAddress inetSocketAddress = new InetSocketAddress("127.0.0.1",8761);
-        provide.register(inetSocketAddress);
-        List app_tst = provide.lookup("app_tst");
-        System.out.println(app_tst);
+//        EurekaRegistryProvider eurekaRegistryProvider = new EurekaRegistryProvider();
+//        RegistryService provide = eurekaRegistryProvider.provide();
+//        InetSocketAddress unresolved = InetSocketAddress.createUnresolved("127.0.0.1", 8761);
+//        InetSocketAddress inetSocketAddress = new InetSocketAddress("127.0.0.1",8761);
+//        //provide.register(inetSocketAddress);
+//
+//        provide.subscribe("", (EurekaEventListener) System.out::println);
+//        List app_tst = provide.lookup("app_tst");
+//        System.out.println(app_tst);
+        CustomEurekaInstanceConfig cloudInstanceConfig = new CustomEurekaInstanceConfig();
+        cloudInstanceConfig.setApplicationName("tst");
+        cloudInstanceConfig.setPort(8761);
+        cloudInstanceConfig.setInstanceId("01");
+        cloudInstanceConfig.setIpAddress("127.0.0.1");
+        LeaseInfo leaseInfo = new LeaseInfo(1, 1, System.currentTimeMillis(), System.currentTimeMillis(), System.currentTimeMillis(), System.currentTimeMillis(), System.currentTimeMillis());
+        InstanceInfo instanceInfo = new InstanceInfo("tst", "tst", "tg", "127.0.0.1", "01", new InstanceInfo.PortWrapper(true, 8761), new InstanceInfo.PortWrapper(true, 8761), "/index", "/status", "/health", "/health", "127.0.0.1", "127.0.0.1", 1, (DataCenterInfo) () -> DataCenterInfo.Name.Netflix,"t", InstanceInfo.InstanceStatus.UP,null, InstanceInfo.InstanceStatus.STARTING,leaseInfo,false,new HashMap<>(0),System.currentTimeMillis(),System.currentTimeMillis(), InstanceInfo.ActionType.ADDED,"asg");
+        ApplicationInfoManager applicationInfoManager = new ApplicationInfoManager(cloudInstanceConfig, instanceInfo);
+        DefaultEurekaClientConfig defaultEurekaClientConfig = new DefaultEurekaClientConfig("def");
+        DiscoveryClient discoveryClient = new DiscoveryClient(applicationInfoManager, new DefaultEurekaClientConfig("def"));
+        discoveryClient.registerEventListener(System.out::println);
+        discoveryClient.registerHealthCheck(instanceStatus -> InstanceInfo.InstanceStatus.UP);
+        Applications applications = discoveryClient.getApplications();
+        System.out.println(applications.size());
+        IIORegistry defaultInstance = IIORegistry.getDefaultInstance();
     }
 }

@@ -1,17 +1,22 @@
 package com.gtx.core.rpc;
 
+import com.gtx.core.protocol.RpcMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.ReferenceCountUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author LILONGTAO
  * @date 2019-11-04
  */
 public class ClientHandler extends ChannelInboundHandlerAdapter {
+    private Logger log = LoggerFactory.getLogger(ClientHandler.class);
 
     // ByteBuf是一个引用计数对象，这个对象必须显示地调用release()方法来释放。
     // 请记住处理器的职责是释放所有传递到处理器的引用计数对象。
@@ -38,6 +43,19 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
             ReferenceCountUtil.release(msg);
         }
     }
+
+//    @Override
+//    protected void channelRead0(ChannelHandlerContext channelHandlerContext, RpcMessage rpcMessage) throws Exception {
+//        try {
+//            // 报文解析处理
+//            log.info("收到客户端[" + ctx.channel().remoteAddress() + "]参数:"+msg);
+//            ctx.writeAndFlush("解析成功");
+//        } catch (Exception e) {
+//            String errorCode = "-1\n";
+//            ctx.writeAndFlush(errorCode);
+//            log.error("报文解析失败: " + e.getMessage());
+//        }
+//    }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception

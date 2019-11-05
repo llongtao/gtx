@@ -33,13 +33,14 @@
 
     <properties>
         <spring.version>4.3.23.RELEASE</spring.version>
-        <netty.version>4.1.30.Final</netty.version>
+        <netty.version>4.1.42.Final</netty.version>
         <cglib.version>3.1</cglib.version>
         <eureka.version>1.9.5</eureka.version>
         <archaius.version>0.7.6</archaius.version>
         <commons-lang.version>2.6</commons-lang.version>
         <fastjson.version>1.2.60</fastjson.version>
         <typesafe.version>1.2.1</typesafe.version>
+        <spring-boot.version>2.1.8.RELEASE</spring-boot.version>
     </properties>
 
     <dependencyManagement>
@@ -86,6 +87,11 @@
                 <groupId>com.typesafe</groupId>
                 <artifactId>config</artifactId>
                 <version>${typesafe.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
         </dependencies>
 
