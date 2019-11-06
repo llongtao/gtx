@@ -41,6 +41,8 @@
         <fastjson.version>1.2.60</fastjson.version>
         <typesafe.version>1.2.1</typesafe.version>
         <spring-boot.version>2.1.8.RELEASE</spring-boot.version>
+        <slf4j-api.version>1.7.22</slf4j-api.version>
+        <logback-classic.version>1.2.0</logback-classic.version>
     </properties>
 
     <dependencyManagement>
@@ -92,6 +94,16 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
                 <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback-classic.version}</version>
             </dependency>
         </dependencies>
 

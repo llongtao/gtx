@@ -166,4 +166,17 @@ public class RpcMessage {
     public void setMessageType(byte messageType) {
         this.messageType = messageType;
     }
+
+
+    @Override
+    public String toString() {
+        return "RpcMessage{" +
+                "id=" + id +
+                ", messageType=" + messageType +
+                ", codec=" + codec +
+                ", compressor=" + compressor +
+                ", headMap=" + headMap +
+                ", body=" + body +
+                '}';
+    }
 }
