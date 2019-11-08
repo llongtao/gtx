@@ -10,4 +10,8 @@ import java.nio.charset.StandardCharsets;
 public class GtxConstants {
     public static final String DEFAULT_CHARSET_NAME = "utf-8";
     public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+    public static final String ENDPOINT_BEGIN_CHAR = "/";
+    public static final String IP_PORT_SPLIT_CHAR = ":";
+    public static final String CLIENT_ID_SPLIT_CHAR = ":";
+    public static final String DBKEYS_SPLIT_CHAR = ",";
 }

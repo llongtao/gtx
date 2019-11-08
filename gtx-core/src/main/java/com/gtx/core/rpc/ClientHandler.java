@@ -23,9 +23,11 @@ public class ClientHandler extends SimpleChannelInboundHandler<RpcMessage> {
     protected void channelRead0(ChannelHandlerContext ctx, RpcMessage rpcMessage) throws Exception {
         try {
             // 报文解析处理
-            System.out.println(rpcMessage);
             log.info("收到客户端[" + ctx.channel().remoteAddress() + "]参数:"+rpcMessage);
-            ctx.writeAndFlush("解析成功");
+            //ctx.writeAndFlush("解析成功");
+            DispatcherService.handle(rpcMessage,ctx);
+
+
         } catch (Exception e) {
             String errorCode = "-1\n";
             ctx.writeAndFlush(errorCode);

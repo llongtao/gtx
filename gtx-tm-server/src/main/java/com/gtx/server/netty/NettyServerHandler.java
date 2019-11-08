@@ -28,7 +28,8 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RpcMessage> 
             log.info("收到客户端[" + ctx.channel().remoteAddress() + "]参数:" + msg);
             RpcMessage rpcMessage = new RpcMessage();
             rpcMessage.setId(99);
-            rpcMessage.setCodec(MessageType.TYPE_SEATA_MERGE);
+            rpcMessage.setCodec((byte) 59);
+            rpcMessage.setMessageType((byte) 59);
             GlobalBeginRequest globalBeginRequest = new GlobalBeginRequest();
             globalBeginRequest.setXid("666");
             rpcMessage.setBody(globalBeginRequest);
@@ -37,7 +38,8 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RpcMessage> 
         } catch (Exception e) {
             RpcMessage rpcMessage = new RpcMessage();
             rpcMessage.setId(99);
-            rpcMessage.setCodec(MessageType.TYPE_SEATA_MERGE);
+            rpcMessage.setCodec((byte) 59);
+            rpcMessage.setMessageType((byte) 59);
             ctx.writeAndFlush(rpcMessage);
             log.error("报文解析失败: " + e.getMessage());
         }

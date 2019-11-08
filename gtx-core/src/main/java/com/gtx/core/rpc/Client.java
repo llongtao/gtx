@@ -1,16 +1,11 @@
 package com.gtx.core.rpc;
 
 import com.alibaba.fastjson.JSON;
-import com.gtx.core.protocol.GlobalBeginRequest;
-import com.gtx.core.protocol.MessageType;
-import com.gtx.core.protocol.RpcMessage;
+import com.gtx.core.protocol.*;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -20,21 +15,17 @@ import io.netty.handler.codec.string.StringEncoder;
 
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
+import java.util.Map;
 
 /**
  * @author LILONGTAO
  * @date 2019-11-04
  */
 public class Client {
-    /*IP地址*/
-    static final String HOST = System.getProperty("host", "127.0.0.1");
-    /*端口号*/
-    static final int PORT1 = Integer.parseInt(System.getProperty("port", "8888"));
+    private static final EventLoopGroup workgroup = new NioEventLoopGroup();
 
-    static final int PORT2 = Integer.parseInt(System.getProperty("port", "8888"));
+    public static Channel start(String ip ,int port) throws InterruptedException {
 
-    public static void main(String[] args) throws Exception {
-        EventLoopGroup workgroup = new NioEventLoopGroup();
         //客户端
         Bootstrap b = new Bootstrap()
                 .group(workgroup)
@@ -49,22 +40,7 @@ public class Client {
                         nsc.pipeline().addLast(new ClientHandler());
                     }
                 });
-        //创建异步连接 可添加多个端口
-        ChannelFuture cf1 = b.connect(HOST, PORT1).sync();
-        ChannelFuture cf2 = b.connect(HOST, PORT2).sync();
-
-        RpcMessage rpcMessage = new RpcMessage();
-        rpcMessage.setId(1);
-        rpcMessage.setCodec(MessageType.TYPE_SEATA_MERGE);
-        GlobalBeginRequest globalBeginRequest = new GlobalBeginRequest();
-        globalBeginRequest.setXid("555");
-        rpcMessage.setBody(globalBeginRequest);
-        //buf
-        //client向server端发送数据  Buffer形式
-        while(true){
-            cf1.channel().writeAndFlush(rpcMessage);
-            cf2.channel().writeAndFlush(rpcMessage);
-        }
+        return b.connect(ip, port).sync().channel();
 
 
 //
