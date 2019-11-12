@@ -3,6 +3,7 @@ package com.gtx.server.netty;
 import com.gtx.core.protocol.GlobalBeginRequest;
 import com.gtx.core.protocol.MessageType;
 import com.gtx.core.protocol.RpcMessage;
+import com.gtx.core.rpc.DispatcherService;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -24,16 +25,17 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RpcMessage> 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, RpcMessage msg) {
         try {
-            // 报文解析处理
-            log.info("收到客户端[" + ctx.channel().remoteAddress() + "]参数:" + msg);
-            RpcMessage rpcMessage = new RpcMessage();
-            rpcMessage.setId(99);
-            rpcMessage.setCodec((byte) 59);
-            rpcMessage.setMessageType((byte) 59);
-            GlobalBeginRequest globalBeginRequest = new GlobalBeginRequest();
-            globalBeginRequest.setXid("666");
-            rpcMessage.setBody(globalBeginRequest);
-            ctx.writeAndFlush(rpcMessage);
+            DispatcherService.handle(msg,ctx);
+//            // 报文解析处理
+//            log.info("收到客户端[" + ctx.channel().remoteAddress() + "]参数:" + msg);
+//            RpcMessage rpcMessage = new RpcMessage();
+//            rpcMessage.setId(99);
+//            rpcMessage.setCodec((byte) 59);
+//            rpcMessage.setMessageType((byte) 59);
+//            GlobalBeginRequest globalBeginRequest = new GlobalBeginRequest();
+//            globalBeginRequest.setXid("666");
+//            rpcMessage.setBody(globalBeginRequest);
+//            ctx.writeAndFlush(rpcMessage);
             //ctx.close();
         } catch (Exception e) {
             RpcMessage rpcMessage = new RpcMessage();
