@@ -1,26 +1,15 @@
-package com.gtx.tm;
+package com.gtx.core.transaction;
 
 import com.gtx.core.enums.GlobalStatus;
 import com.gtx.core.exception.TransactionException;
-import com.gtx.core.protocol.GlobalBeginRequest;
-import com.gtx.core.protocol.RpcMessage;
-import com.gtx.core.rpc.ChannelManager;
-import com.gtx.core.transaction.TransactionManager;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-
-import java.util.UUID;
 
 /**
- * @author LILONGTAO
- * @date 2019-11-05
+ * @author llt
+ * @date 2020-08-31 22:39
  */
-public class DefaultTransactionManager implements TransactionManager {
-
-
+public class PC2TransactionManager implements TransactionManager {
     @Override
     public String begin(String applicationId, String transactionServiceGroup, String name, int timeout) throws TransactionException {
-
         return null;
     }
 

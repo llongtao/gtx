@@ -38,7 +38,7 @@ public class DemoController {
     String add(){
         User user = new User();
         user.setName("123");
-        //demoService.addUser(user);
+        demoService.addUser(user);
         ILoadBalancer namedLoadBalancer = ClientFactory.getNamedLoadBalancer("gtx-tm-server");
         List<Server> reachableServers = namedLoadBalancer.getReachableServers();
         System.out.println(reachableServers.size());
@@ -47,14 +47,14 @@ public class DemoController {
         }
         List<ServiceInstance> instances1 = discoveryClient.getInstances("gtx-tm-server");
         System.out.println(instances1);
-//        IClient namedClient = ClientFactory.getNamedClient("gtx-tm-server");
-//        ClientRequest clientRequest = new ClientRequest();
-//        IClientConfig iClientConfig = new DefaultClientConfigImpl("1");
-//        try {
-//            namedClient.execute(clientRequest,iClientConfig);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        IClient namedClient = ClientFactory.getNamedClient("gtx-tm-server");
+        ClientRequest clientRequest = new ClientRequest();
+        IClientConfig iClientConfig = new DefaultClientConfigImpl("1");
+        try {
+            namedClient.execute(clientRequest,iClientConfig);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return JSON.toJSONString(instances1);
     }
 }

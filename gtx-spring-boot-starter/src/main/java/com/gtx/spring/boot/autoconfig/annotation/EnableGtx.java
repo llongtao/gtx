@@ -9,8 +9,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * @author llt
+ */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Import(GtxAutoConfiguration.class)
+@Import({GtxAutoConfiguration.class})
 public @interface EnableGtx {
 }

@@ -2,21 +2,27 @@ package com.gtx.spring.boot.autoconfig;
 
 import com.gtx.common.exception.GtxException;
 import com.gtx.common.utils.StringUtils;
+import com.gtx.core.RootConfig;
 import com.gtx.rm.datasource.DataSourceProxy;
 import com.gtx.spring.autoproxy.GtxAutoproxyCreator;
 import com.gtx.spring.boot.autoconfig.properties.GtxProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
+
+import java.util.List;
 
 import static com.gtx.spring.boot.autoconfig.PropertiesConstants.GTX_PREFIX;
 
@@ -35,6 +41,9 @@ public class GtxAutoConfiguration {
 
     @Resource
     private GtxProperties gtxProperties;
+
+    @Resource
+    private DiscoveryClient discoveryClient;
 
     @Value("${spring.application.name:null}")
     private String appName;
@@ -59,7 +68,11 @@ public class GtxAutoConfiguration {
             txServiceGroup = PropertiesConstants.DEFAULT_GROUP;
         }
 
-
+        List<ServiceInstance> instances = discoveryClient.getInstances("gtx-tm-server");
+        System.out.println("gtx-tm-server:"+instances);
+        ServiceInstance serviceInstance = instances.get(0);
+        RootConfig.setServerIp(serviceInstance.getHost());
+        RootConfig.setServerPort(serviceInstance.getPort());
         return new GtxAutoproxyCreator(applicationId, txServiceGroup);
     }
 }

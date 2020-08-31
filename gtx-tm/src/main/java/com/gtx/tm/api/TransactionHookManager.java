@@ -1,5 +1,6 @@
 package com.gtx.tm.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,11 +8,15 @@ import java.util.List;
  * @date 2019-11-01
  */
 public class TransactionHookManager {
+
+    private static List<TransactionHook> transactionHookList
+            = new ArrayList<>();
+
     public static void clear() {
 
     }
 
     public static List<TransactionHook> getHooks() {
-        return null;
+        return transactionHookList;
     }
 }

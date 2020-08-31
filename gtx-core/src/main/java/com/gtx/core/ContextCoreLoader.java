@@ -6,6 +6,6 @@ package com.gtx.core;
  */
 public class ContextCoreLoader {
     public static ContextCore load() {
-        return null;
+        return new ThreadLocalContextCore();
     }
 }

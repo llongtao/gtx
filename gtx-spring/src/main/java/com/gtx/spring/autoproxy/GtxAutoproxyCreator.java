@@ -1,6 +1,9 @@
 package com.gtx.spring.autoproxy;
 
 import com.gtx.common.utils.StringUtils;
+import com.gtx.core.RootConfig;
+import com.gtx.core.rpc.RMClient;
+import com.gtx.core.rpc.TMClient;
 import com.gtx.rm.datasource.DataSourceProxy;
 import com.gtx.spring.annotation.GlobalTransactional;
 import com.gtx.spring.model.GtxMethod;
@@ -19,6 +22,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.cglib.proxy.Enhancer;
+import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -26,12 +30,14 @@ import org.springframework.context.ConfigurableApplicationContext;
 import javax.sql.DataSource;
 import java.lang.reflect.Method;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
  * @author LILONGTAO
  * @date 2019-11-01
  */
+
 public class GtxAutoproxyCreator extends AbstractAutoProxyCreator implements InitializingBean, ApplicationContextAware, DisposableBean {
     /**
      *
@@ -145,19 +151,21 @@ public class GtxAutoproxyCreator extends AbstractAutoProxyCreator implements Ini
                     "applicationId: " + applicationId + ", txServiceGroup: " + txServiceGroup);
         }
         //init TM
-        //TMClient.init(applicationId, txServiceGroup);
+        TMClient.init(applicationId, txServiceGroup);
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info(
                     "Transaction Manager Client is initialized. applicationId[" + applicationId + "] txServiceGroup["
                             + txServiceGroup + "]");
         }
         //init RM
-        //RMClient.init(applicationId, txServiceGroup);
+        RMClient.init(applicationId, txServiceGroup);
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info(
                     "Resource Manager is initialized. applicationId[" + applicationId + "] txServiceGroup[" + txServiceGroup
                             + "]");
         }
+
+
 
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Global Transaction Clients are initialized. ");
@@ -181,9 +189,6 @@ public class GtxAutoproxyCreator extends AbstractAutoProxyCreator implements Ini
             return bean;
         }
         try {
-            if(beanName.contains("demoService")){
-                System.out.println(beanName);
-            }
             synchronized (PROXYED_SET) {
                 if (PROXYED_SET.contains(beanName)) {
                     return bean;

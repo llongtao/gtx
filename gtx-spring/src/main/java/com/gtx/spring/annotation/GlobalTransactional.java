@@ -52,4 +52,6 @@ public @interface GlobalTransactional {
      * @return
      */
     String[] noRollbackForClassName() default {};
+
+    boolean isLast() default false;
 }

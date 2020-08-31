@@ -12,7 +12,8 @@ public enum  MessageType {
     /**
      *
      */
-    GlobalBeginRequest((byte) 59,GlobalBeginRequest.class);
+    GlobalBeginRequest((byte) 59,GlobalBeginRequest.class),
+    RegisterRMRequest((byte) 60,RegisterRMRequest.class);
     ;
 
 
