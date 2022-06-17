@@ -38,7 +38,7 @@
         <eureka.version>1.9.5</eureka.version>
         <archaius.version>0.7.6</archaius.version>
         <commons-lang.version>2.6</commons-lang.version>
-        <fastjson.version>1.2.60</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <typesafe.version>1.2.1</typesafe.version>
         <spring-boot.version>2.1.8.RELEASE</spring-boot.version>
         <slf4j-api.version>1.7.22</slf4j-api.version>
